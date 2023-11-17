@@ -30,14 +30,14 @@ export class DropdownSelect extends React.Component {
 
     render() {
         return (
-        <Box>
-            <Text fontSize={16} mb={2}>Chọn thiết bị để lưu tuyến đường</Text>
-            <Select value={this.state.selectedOption} onChange={this.handleSelectChange}>
-                <option value="LGE_LM-V350_e9c88b01d291a942">Thiết bị 1</option>
-                <option value="samsung_SM-G975F_bca70a5f1c14d30a">Thiết bị 2</option>
-            </Select>
-            <Button colorScheme='pink' type='submit' paddingBottom='25px' paddingTop='25px' width={'15%'} fontSize={20} marginTop={3} onClick={this.handleSaveData}>Save</Button>
-        </Box>
-        );
-    }
+            <Box>
+                <Text fontSize={16} mb={2}>Chọn thiết bị để lưu tuyến đường</Text>
+                <Select value={this.state.selectedOption} onChange={this.handleSelectChange}>
+                    <option value="LGE_LM-V350_e9c88b01d291a942">Thiết bị 1</option>
+                    <option value="samsung_SM-G975F_bca70a5f1c14d30a">Thiết bị 2</option>
+                </Select>
+                <Button colorScheme='pink' type='submit' paddingBottom='25px' paddingTop='25px' width={'15%'} fontSize={20} marginTop={3} onClick={this.handleSaveData}>Save</Button>
+            </Box>
+            );
+        }
 }

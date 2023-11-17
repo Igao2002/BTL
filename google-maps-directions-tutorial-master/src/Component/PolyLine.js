@@ -1,27 +1,69 @@
-import React from 'react'
+import React from 'react';
 import { Polyline } from '@react-google-maps/api';
 
 export class PolyLineComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: props.data,
-    };
-  }
-
-  render(){
-    //lấy data
-    const pathCoordinates = this.props.data;
-    console.log(pathCoordinates)
-    return (
-        <Polyline
-          path={pathCoordinates}
-          options={{
-            strokeColor: '#FF0000',
-            strokeOpacity: 1.0,
-            strokeWeight: 2,
-          }}
-        />
-    );
-  }
+    render () {
+        const path1 = this.props.dataToPass;
+        console.log(path1);
+        const pathCoordinates = [
+            {lat: 20.977712436650236, lng: 105.80155319758052},
+            {lat: 20.9814802, lng: 105.7874745},
+            {lat: 20.9815198, lng: 105.7875077},
+            {lat: 20.981502, lng: 105.787479},
+            {lat: 20.9814036, lng: 105.7878128},
+            {lat: 20.9811176, lng: 105.7879378},
+            {lat: 20.9807997, lng: 105.788026},
+            {lat: 20.9814679, lng: 105.7877025},
+            {lat: 20.9804593, lng: 105.7877854},
+            {lat: 20.980546, lng: 105.7880071},
+            {lat: 20.9806452, lng: 105.7881106},
+            {lat: 20.9807285, lng: 105.7879995},
+            {lat: 20.9808307, lng: 105.7882263},
+            {lat: 20.9808208, lng: 105.7883121},
+            {lat: 20.9808658, lng: 105.7882194},
+            {lat: 20.9809255, lng: 105.7881303},
+            {lat: 20.9811195, lng: 105.7880252},
+            {lat: 20.9813042, lng: 105.7878954},
+            {lat: 20.9814572, lng: 105.7878141},
+            {lat: 20.9816678, lng: 105.7875802},
+            {lat: 20.9818446, lng: 105.7874798},
+            {lat: 20.982038, lng: 105.7872906},
+            {lat: 20.9821975, lng: 105.7872458},
+            {lat: 20.9823054, lng: 105.7870429},
+            {lat: 20.9824603, lng: 105.7872503},
+            {lat: 20.9824982, lng: 105.7873671},
+            {lat: 20.9826157, lng: 105.7874923},
+            {lat: 20.9827942, lng: 105.7875787},
+            {lat: 20.9829325, lng: 105.7874352},
+            {lat: 20.9830914, lng: 105.787575},
+            {lat: 20.9832767, lng: 105.7875456},
+            {lat: 20.9834453, lng: 105.7875568},
+            {lat: 20.9836356, lng: 105.7876998},
+            {lat: 20.9837754, lng: 105.7878544},
+            {lat: 20.9839189, lng: 105.7879959},
+            {lat: 20.9840212, lng: 105.7881313},
+            {lat: 20.9841972, lng: 105.7883483},
+            {lat: 20.9844155, lng: 105.7884856},
+            {lat: 20.9844341, lng: 105.7886786},
+            {lat: 20.9844423, lng: 105.7887244},
+            {lat: 20.9844755, lng: 105.788739},
+            {lat: 20.9845867, lng: 105.7887838},
+            {lat: 20.984633, lng: 105.7887981},
+            {lat: 20.9846545, lng: 105.7889667},
+            {lat: 20.9846391, lng: 105.7889596},
+            {lat: 20.9846361, lng: 105.7889699},
+            {lat: 20.9846389, lng: 105.7889581}
+        ]
+        console.log(pathCoordinates);
+        return (
+            <Polyline
+                path={path1}
+                options={{
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 1.0,
+                    strokeWeight: 2,
+                }}
+            />
+        );
+    }
 };

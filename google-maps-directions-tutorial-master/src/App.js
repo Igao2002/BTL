@@ -1,13 +1,13 @@
+import React from 'react'
 import { Box, Button, ButtonGroup, Flex, HStack, IconButton, Input, SkeletonText, Text, Divider } from '@chakra-ui/react'
 import { FaLocationArrow, FaTimes } from 'react-icons/fa'
 import { useJsApiLoader, GoogleMap, Marker, Autocomplete, DirectionsRenderer } from '@react-google-maps/api'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ref, child, onValue } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
 import { database } from "./Component/firebase"
 import { DropdownSelect } from './Component/DropdownSelect';
 import { PolyLineOfDevice } from './Component/PolyLineOfDevice';
 import { PolyLineComponent } from './Component/PolyLine';
-import React from 'react'
 import { Detail } from './Component/details'
 
 const libraries = ['places'];
@@ -17,39 +17,35 @@ function App() {
     libraries: libraries,
   })
   
-  const [showPolyline, setShowPolyline] = useState(false);
-  const [showInfo, setShowInfo] = useState(false);
-  const [showBox, setShowBox] = useState(false);
-  const [showWay, setShowWay] = useState(false);
   const [map, setMap] = useState(/** @type google.maps.Map */(null))
   const [directionsResponse, setDirectionsResponse] = useState(null)
   const [distance, setDistance] = useState('')
   const [duration, setDuration] = useState('')
-  const [check, setCheck] = useState(false);
-  // const [checkPolyLine, setCheckPolyLine] = useState(false);
+  const [position, setPosition] = useState('')
+  const [showInfo, setShowInfo] = useState(false);
+  const [showBox, setShowBox] = useState(false);
+  const [showWay, setShowWay] = useState(false);
+  const [showPolyline, setShowPolyline] = useState(false);
   const coordinates = useRef([]);
-  //test
   
   /** @type React.MutableRefObject<HTMLInputElement> */
   const originRef = useRef()
   /** @type React.MutableRefObject<HTMLInputElement> */
   const destiantionRef = useRef()
+  const dbRef = ref(database);
   
+  useEffect(() => {
+    onValue(child(dbRef, `realtime/LGE_LM-V350_7417b07941dd5c2a`), (snapshot) => {
+      const data = snapshot.val();
+      // console.log(data)
+      const now = { lat: data.latitude, lng: data.longitude }
+      setPosition(now)
+    });
+  }, [dbRef]);
+
   if (!isLoaded) {
     return <SkeletonText />
   }
-  
-  const pathCoordinates = [];
-  let  center = { lat: 20.981159951655183, lng: 105.78742447634367 };
-  // lấy data
-  const dbRef = ref(database);
-  // Lấy dữ liệu vị trí hiện tại
-  onValue(child(dbRef, `realtime/LGE_LM-V350_e9c88b01d291a942`), (snapshot) => {
-    const data = snapshot.val();
-    // console.log(data)
-    center = { lat: data.latitude, lng: data.longitude }
-  });
-  // const coordinates = [];
 
   // Tính khoảng cách thời gian
   async function calculateRoute() {
@@ -75,25 +71,14 @@ function App() {
     }));
     // Danh sách tọa độ sẽ nằm trong biến coordinates
     coordinates.current = newCoordinates;
-    setCheck(true)
-    if(check){
-      console.log(coordinates.current);
-    }
   }
   
-  //clear data input
   function clearRoute() {
     setDirectionsResponse(null)
     setDistance('')
     setDuration('')
     originRef.current.value = ''
     destiantionRef.current.value = ''
-  }
-
-  // function show...
-  function polyLineFunction() {
-    console.log('1')
-    setShowPolyline(!showPolyline);
   }
 
   function infoFunction() {
@@ -106,6 +91,7 @@ function App() {
     setShowWay(!showWay)
     setShowBox(false);
     setShowInfo(false);
+    setShowPolyline(!showPolyline)
   }
 
   function boxFunction() {
@@ -136,7 +122,7 @@ function App() {
       <Box position='absolute' left={0} top={0} h='100%' w='100%'>
         {/* Google Map Box */}
         <GoogleMap
-          center={center}
+          center={position}
           zoom={15}
           mapContainerStyle={{ width: '100%', height: '100%' }}
           options={{
@@ -147,14 +133,14 @@ function App() {
           }}
           onLoad={map => setMap(map)}
         >
-          <Marker position={center} />
+          <Marker position={position} />
           {/* đường đi giữa 2 điểm. */}
           {directionsResponse && (
             <DirectionsRenderer directions={directionsResponse} />
           )}
           {/* Đường đi từ dữ liệu firebase theo thiết bị */}
           {showPolyline && (
-            <PolyLineComponent data={pathCoordinates}/>
+            <PolyLineComponent/>
           )}
         </GoogleMap>
       </Box>
@@ -204,7 +190,7 @@ function App() {
               icon={<FaLocationArrow />}
               isRound
               onClick={() => {
-                map.panTo(center)
+                map.panTo(position)
                 map.setZoom(15)
               }}
             />
@@ -214,35 +200,11 @@ function App() {
           <DropdownSelect data={coordinates.current}/>
         </Box>
       )}
-      {showInfo && (
-        // <Box
-        //   p={4}
-        //   borderRadius='lg'
-        //   m={4}
-        //   bgColor='white'
-        //   shadow='base'
-        //   minW='container.md'
-        //   zIndex='1'
-        // >
-        //   <Text fontSize={20} mb={2}>Chọn phương tiện muốn hiển thị thông tin</Text>
-        //   <Select fontSize={20}>
-        //       <option value="LGE_LM-V350_7417b07941dd5c2a">Phương tiện 1</option>
-        //       <option value="samsung_SM-G975F_bca70a5f1c14d30a">Phương tiện 2</option>
-        //   </Select>
-        //   <Box fontSize={20} marginBottom={3} ml={4} mr={2} mt={2}>
-        //     Tốc độ:
-        //   </Box>
-        //   <Box fontSize={20} marginBottom={3} ml={4} mr={2}>
-        //     Vị trí:
-        //   </Box>
-        //   <Box fontSize={20} marginBottom={3} ml={4} mr={2}>
-        //     Thông tin:
-        //   </Box>
-        // </Box>
-        <Detail/>
-      )}
       {showWay && (
-        <PolyLineOfDevice fc={polyLineFunction}/>
+        <PolyLineOfDevice/>
+      )}
+      {showInfo && (
+        <Detail/>
       )}
     </Flex>
   )
