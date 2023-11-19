@@ -26,7 +26,8 @@ function App() {
   const [showBox, setShowBox] = useState(false);
   const [showWay, setShowWay] = useState(false);
   const [showPolyline, setShowPolyline] = useState(false);
-  const coordinates = useRef([]);
+  const [coordinates, setCoordinates] = useState([]);
+  const [route, setRoute] = useState([])
   
   /** @type React.MutableRefObject<HTMLInputElement> */
   const originRef = useRef()
@@ -37,7 +38,6 @@ function App() {
   useEffect(() => {
     onValue(child(dbRef, `realtime/LGE_LM-V350_7417b07941dd5c2a`), (snapshot) => {
       const data = snapshot.val();
-      // console.log(data)
       const now = { lat: data.latitude, lng: data.longitude }
       setPosition(now)
     });
@@ -70,8 +70,13 @@ function App() {
       lng: path.lng(),
     }));
     // Danh sách tọa độ sẽ nằm trong biến coordinates
-    coordinates.current = newCoordinates;
+    setCoordinates(newCoordinates);
   }
+
+  const handleCoordinatesChange = (newCoordinates) => {
+    setRoute(newCoordinates);
+    console.log(newCoordinates)
+  };
   
   function clearRoute() {
     setDirectionsResponse(null)
@@ -85,6 +90,8 @@ function App() {
     setShowInfo(!showInfo);
     setShowBox(false);
     setShowWay(false);
+    setShowPolyline(false)
+
   }
 
   function wayFunction(){
@@ -98,6 +105,8 @@ function App() {
     setShowBox(!showBox);
     setShowWay(false);
     setShowInfo(false);
+    setShowPolyline(false)
+
   }
 
   return (
@@ -113,7 +122,7 @@ function App() {
           Tìm đường
         </Button>
         <Button colorScheme='pink' type='submit' paddingBottom='30px' paddingTop='30px' width={'80%'} fontSize={20} onClick={wayFunction}>
-          Hiển thị đường đi
+          Xem lộ trình
         </Button>
         <Button colorScheme='pink' type='submit' paddingBottom='30px' paddingTop='30px' width={'80%'} fontSize={20} onClick={infoFunction}>
           Thông tin chi tiết
@@ -140,7 +149,7 @@ function App() {
           )}
           {/* Đường đi từ dữ liệu firebase theo thiết bị */}
           {showPolyline && (
-            <PolyLineComponent/>
+            <PolyLineComponent coordinates={route}/>
           )}
         </GoogleMap>
       </Box>
@@ -196,15 +205,14 @@ function App() {
             />
           </HStack>
           <Divider orientation='horizontal' mt={4} mb={4} />
-
-          <DropdownSelect data={coordinates.current}/>
+          <DropdownSelect dataSave={coordinates}/>
         </Box>
       )}
       {showWay && (
-        <PolyLineOfDevice/>
+        <PolyLineOfDevice onCoordinatesChange={handleCoordinatesChange} />
       )}
       {showInfo && (
-        <Detail/>
+          <Detail/>
       )}
     </Flex>
   )
