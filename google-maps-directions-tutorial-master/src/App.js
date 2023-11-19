@@ -9,6 +9,8 @@ import { DropdownSelect } from './Component/DropdownSelect';
 import { PolyLineOfDevice } from './Component/PolyLineOfDevice';
 import { PolyLineComponent } from './Component/PolyLine';
 import { Detail } from './Component/details'
+import { HistoryOfDevice } from './Component/historyOfDevice'
+import { HistoryComponent } from './Component/history'
 
 const libraries = ['places'];
 function App() {
@@ -25,9 +27,11 @@ function App() {
   const [showInfo, setShowInfo] = useState(false);
   const [showBox, setShowBox] = useState(false);
   const [showWay, setShowWay] = useState(false);
+  const [showHistory, setShowHistory] = useState(false);
   const [showPolyline, setShowPolyline] = useState(false);
   const [coordinates, setCoordinates] = useState([]);
   const [route, setRoute] = useState([])
+  const [history, setHistory] = useState([])
   
   /** @type React.MutableRefObject<HTMLInputElement> */
   const originRef = useRef()
@@ -77,6 +81,12 @@ function App() {
     setRoute(newCoordinates);
     map.panTo(newCoordinates[0]);
   };
+
+  const handleHistoryChange = (newHistory) => {
+    setHistory(newHistory);
+    map.panTo(newHistory[0]);
+  };
+  
   
   function clearRoute() {
     setDirectionsResponse(null)
@@ -90,23 +100,32 @@ function App() {
     setShowInfo(!showInfo);
     setShowBox(false);
     setShowWay(false);
-    // setShowPolyline(false)
-
+    setShowPolyline(false);
+    setShowHistory(false);
   }
 
   function wayFunction(){
-    setShowWay(!showWay)
+    setShowPolyline(!showPolyline);
+    setShowWay(!showWay);
     setShowBox(false);
     setShowInfo(false);
-    setShowPolyline(!showPolyline)
+    setShowHistory(false);
+  }
+
+  function historyFunction(){
+    setShowHistory(!showHistory);
+    setShowWay(false);
+    setShowBox(false);
+    setShowInfo(false);
+    setShowPolyline(false);
   }
 
   function boxFunction() {
     setShowBox(!showBox);
     setShowWay(false);
     setShowInfo(false);
-    // setShowPolyline(false)
-
+    setShowHistory(false);
+    setShowPolyline(false);
   }
 
   return (
@@ -120,6 +139,9 @@ function App() {
       <Box className='menu' position='absolute' left={0} top={0} h='100%' w='10%' bgColor='white' zIndex={100} display='flex' alignItems='center' flexDirection='column' gap={50}>
         <Button colorScheme='pink' type='submit' paddingBottom='30px' paddingTop='30px' width={'80%'} fontSize={20} marginTop={50} onClick={boxFunction}>
           Tìm đường
+        </Button>
+        <Button colorScheme='pink' type='submit' paddingBottom='30px' paddingTop='30px' width={'80%'} fontSize={20} onClick={historyFunction}>
+          Xem lịch sử đường đi
         </Button>
         <Button colorScheme='pink' type='submit' paddingBottom='30px' paddingTop='30px' width={'80%'} fontSize={20} onClick={wayFunction}>
           Xem lộ trình
@@ -183,6 +205,9 @@ function App() {
             <DropdownSelect dataSave={coordinates}/>
           </Box>
         )}
+        {showHistory && (
+          <HistoryOfDevice onHistory={handleHistoryChange}/>
+        )}
         {showWay && (
           <PolyLineOfDevice onCoordinatesChange={handleCoordinatesChange} />
         )}
@@ -211,6 +236,9 @@ function App() {
           {/* Đường đi từ dữ liệu firebase theo thiết bị */}
           {showPolyline && (
             <PolyLineComponent coordinates={route}/>
+          )}
+          {showHistory && (
+            <HistoryComponent coordinates={history}/>
           )}
         </GoogleMap>
       </Box>

@@ -10,6 +10,7 @@ export const Detail = React.memo(() => {
     const [azimuth, setAzimuth] = useState('')
     const [location, setLocation] = useState('');
     const [time, setTime] = useState('')
+    const [warning, setWarning] = useState('')
     const dbRef = ref(database);
     
     useEffect(() => {
@@ -22,6 +23,9 @@ export const Detail = React.memo(() => {
         const current = firebaseData.latitude + ' - ' + firebaseData.longitude;
         setLocation(current);
         setAzimuth(firebaseData.azimuth);
+        if(firebaseData.behavior !== 'SLOW'){
+            setWarning(firebaseData.behavior)
+        }
 
         const intervalId = setInterval(() => {
             setTime(new Date().toLocaleTimeString() + ' -/- ' + new Date().toLocaleDateString());
@@ -65,6 +69,14 @@ export const Detail = React.memo(() => {
             <Box fontSize={20} marginBottom={2} ml={4} mr={2}>
                 Thời gian: {time}
             </Box>
+            <Divider orientation='horizontal' mt={2} mb={2}/>
+            {warning && (
+                <Box fontSize={20} marginBottom={2} fontWeight={500} ml={4} mr={2} color={'red'}>
+                    ! CẢNH BÁO
+                </Box>
+            )}
         </Box>
     );
 })
+
+//DONE
