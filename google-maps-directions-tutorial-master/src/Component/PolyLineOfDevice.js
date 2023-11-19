@@ -20,7 +20,7 @@ export const PolyLineOfDevice = ({ onCoordinatesChange }) => {
       }
       onCoordinatesChange(pathCoordinates);
     });
-  }, [selectedVehicle])
+  }, [dbRef, selectedVehicle])
 
   const handleSelectChange = (event) => {
     setSelectedVehicle(event.target.value);

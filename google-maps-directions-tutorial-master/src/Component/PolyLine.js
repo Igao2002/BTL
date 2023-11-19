@@ -2,7 +2,6 @@ import React from 'react';
 import { Polyline } from '@react-google-maps/api';
 
 export const PolyLineComponent = (route) => {
-    console.log(route.coordinates)
     return (
         <Polyline
             path={route.coordinates}
