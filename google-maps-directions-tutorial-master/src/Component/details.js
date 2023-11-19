@@ -23,7 +23,7 @@ export const Detail = React.memo(() => {
         const current = firebaseData.latitude + ' - ' + firebaseData.longitude;
         setLocation(current);
         setAzimuth(firebaseData.azimuth);
-        if(firebaseData.behavior !== 'SLOW'){
+        if(firebaseData.behavior !== 'NORMAL'){
             setWarning(firebaseData.behavior)
         }
 
