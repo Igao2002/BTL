@@ -136,7 +136,7 @@ function App() {
       h='100vh'
       w='100vw'
     >
-      <Box className='menu' position='absolute' left={0} top={0} h='100%' w='10%' bgColor='white' zIndex={100} display='flex' alignItems='center' flexDirection='column' gap={50}>
+      <Box className='menu' position='absolute' left={0} top={0} h='100%' w='12%' bgColor='white' zIndex={100} display='flex' alignItems='center' flexDirection='column' gap={50}>
         <Button colorScheme='pink' type='submit' paddingBottom='30px' paddingTop='30px' width={'80%'} fontSize={20} marginTop={50} onClick={boxFunction}>
           Tìm đường
         </Button>

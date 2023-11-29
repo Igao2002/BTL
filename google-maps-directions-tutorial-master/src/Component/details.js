@@ -32,7 +32,7 @@ export const Detail = React.memo(() => {
         }, 1000);
         return () => clearInterval(intervalId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedVehicle, speed]);
+    }, [selectedVehicle, time]);
 
     const handleVehicleChange = (event) => {
         const selectedValue = event.target.value;
@@ -51,8 +51,8 @@ export const Detail = React.memo(() => {
         >
             <Text fontSize={20} mb={2}>Chọn phương tiện muốn hiển thị thông tin</Text>
             <Select fontSize={20} onChange={handleVehicleChange} value={selectedVehicle}>
-                <option value="LGE_LM-V350_7417b07941dd5c2a">Phương tiện 1</option>
-                <option value="LGE_LM-V350_7417b07941dd5c2a">Phương tiện 2</option>
+                <option value="LGE_LM-V350_7417b07941dd5c2a">LGE_LM-V350_7417b07941dd5c2a</option>
+                <option value="samsung_SM-G975F_bca70a5f1c14d30a">samsung_SM-G975F_bca70a5f1c14d30a</option>
             </Select>
             <Box fontSize={20} marginBottom={3} ml={4} mr={2} mt={4}>
                 Tốc độ: {speed} m/s
@@ -72,7 +72,7 @@ export const Detail = React.memo(() => {
             <Divider orientation='horizontal' mt={2} mb={2}/>
             {warning && (
                 <Box fontSize={20} marginBottom={2} fontWeight={500} ml={4} mr={2} color={'red'}>
-                    ! CẢNH BÁO
+                    ! CẢNH BÁO cần duy trì tốc độ ở mức cho phép.
                 </Box>
             )}
         </Box>

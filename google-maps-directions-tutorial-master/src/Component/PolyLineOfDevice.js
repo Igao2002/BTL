@@ -36,10 +36,10 @@ export const PolyLineOfDevice = ({ onCoordinatesChange }) => {
       minW='container.md'
       zIndex='1'
       >
-      <Text fontSize={20} mb={2}>Chọn phương tiện muốn hiển thị đường đi</Text>
+      <Text fontSize={20} mb={2}>Chọn phương tiện muốn hiển thị lộ trình</Text>
       <Select fontSize={20} value={selectedVehicle} onChange={handleSelectChange}>
-          <option value="LGE_LM-V350_e9c88b01d291a942">Phương tiện 1</option>
-          <option value="samsung_SM-G975F_bca70a5f1c14d30a">Phương tiện 2</option>
+          <option value="LGE_LM-V350_e9c88b01d291a942">LGE_LM-V350_e9c88b01d291a942</option>
+          <option value="samsung_SM-G975F_bca70a5f1c14d30a">samsung_SM-G975F_bca70a5f1c14d30a</option>
       </Select>
     </Box>
   );
