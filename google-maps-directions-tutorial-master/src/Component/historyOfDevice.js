@@ -1,12 +1,12 @@
 import { Box, Select,Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { database } from './firebase';
-import { ref, child, onValue } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+import { ref, child, onValue } from "firebase/database";
 
 export const HistoryOfDevice = ({ onHistory }) => {
   const [selectedVehicle, setSelectedVehicle] = useState('LGE_LM-V350_e9c88b01d291a942')
   const dbRef = ref(database);
-  
+
   useEffect(() => {
     //lấy data
     const pathCoordinates = []
@@ -27,7 +27,7 @@ export const HistoryOfDevice = ({ onHistory }) => {
   const handleSelectChange = (event) => {
     setSelectedVehicle(event.target.value);
   }
-    
+
     return (
       <Box
         p={4}

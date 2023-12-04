@@ -3,7 +3,7 @@ import { Box, Button, ButtonGroup, Flex, HStack, IconButton, Input, SkeletonText
 import { FaLocationArrow, FaTimes } from 'react-icons/fa'
 import { useJsApiLoader, GoogleMap, Marker, Autocomplete, DirectionsRenderer } from '@react-google-maps/api'
 import { useEffect, useRef, useState } from 'react'
-import { ref, child, onValue } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+import { ref, child, onValue } from "firebase/database";
 import { database } from "./Component/firebase"
 import { DropdownSelect } from './Component/DropdownSelect';
 import { PolyLineOfDevice } from './Component/PolyLineOfDevice';
@@ -18,7 +18,7 @@ function App() {
     googleMapsApiKey: "AIzaSyC8kwhZ2AEEkMRAJExCe0jZrVKxR4sm7CU",
     libraries: libraries,
   })
-  
+
   const [map, setMap] = useState(/** @type google.maps.Map */(null))
   const [directionsResponse, setDirectionsResponse] = useState(null)
   const [distance, setDistance] = useState('')
@@ -32,13 +32,13 @@ function App() {
   const [coordinates, setCoordinates] = useState([]);
   const [route, setRoute] = useState([])
   const [history, setHistory] = useState([])
-  
+
   /** @type React.MutableRefObject<HTMLInputElement> */
   const originRef = useRef()
   /** @type React.MutableRefObject<HTMLInputElement> */
   const destiantionRef = useRef()
   const dbRef = ref(database);
-  
+
   useEffect(() => {
     onValue(child(dbRef, `realtime/LGE_LM-V350_7417b07941dd5c2a`), (snapshot) => {
       const data = snapshot.val();
@@ -86,8 +86,8 @@ function App() {
     setHistory(newHistory);
     map.panTo(newHistory[0]);
   };
-  
-  
+
+
   function clearRoute() {
     setDirectionsResponse(null)
     setDistance('')
