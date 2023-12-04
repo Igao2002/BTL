@@ -1,12 +1,12 @@
 import { Box, Select,Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { database } from './firebase';
-import { ref, child, onValue } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+import { ref, child, onValue } from "firebase/database";
 
 export const PolyLineOfDevice = ({ onCoordinatesChange }) => {
   const [selectedVehicle, setSelectedVehicle] = useState('LGE_LM-V350_7417b07941dd5c2a')
   const dbRef = ref(database);
-  
+
   useEffect(() => {
     //lấy data
     const pathCoordinates = []
@@ -25,7 +25,7 @@ export const PolyLineOfDevice = ({ onCoordinatesChange }) => {
   const handleSelectChange = (event) => {
     setSelectedVehicle(event.target.value);
   }
-    
+
     return (
       <Box
       p={4}

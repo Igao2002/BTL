@@ -1,7 +1,7 @@
 import { Box, Button, Select, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { database } from './firebase';
-import { ref, update } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+import { ref, update } from "firebase/database";
 
 export const DropdownSelect = (coordinates) => {
     const [selectedOption, setSelectedOption] = useState('LGE_LM-V350_e9c88b01d291a942') // Giá trị mặc định được chọn
