@@ -42,6 +42,7 @@ export const HistoryOfDevice = ({ onHistory }) => {
       <Select fontSize={20} value={selectedVehicle} onChange={handleSelectChange}>
           <option value="LGE_LM-V350_e9c88b01d291a942">LGE_LM-V350_e9c88b01d291a942</option>
           <option value="LGE_LM-V350_7417b07941dd5c2a">LGE_LM-V350_7417b07941dd5c2a</option>
+          <option value="samsung_SM-G975F_bca70a5f1c14d30a">samsung_SM-G975F_bca70a5f1c14d30a</option>
       </Select>
     </Box>
   );

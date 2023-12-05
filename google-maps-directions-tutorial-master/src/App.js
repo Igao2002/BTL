@@ -32,6 +32,7 @@ function App() {
   const [coordinates, setCoordinates] = useState([]);
   const [route, setRoute] = useState([])
   const [history, setHistory] = useState([])
+  const [dvc, setDvc] = useState('LGE_LM-V350_e9c88b01d291a942')
   
   /** @type React.MutableRefObject<HTMLInputElement> */
   const originRef = useRef()
@@ -40,12 +41,12 @@ function App() {
   const dbRef = ref(database);
   
   useEffect(() => {
-    onValue(child(dbRef, `realtime/LGE_LM-V350_7417b07941dd5c2a`), (snapshot) => {
+    onValue(child(dbRef, `realtime/` + dvc), (snapshot) => {
       const data = snapshot.val();
       const now = { lat: data.latitude, lng: data.longitude }
       setPosition(now)
     });
-  }, [dbRef]);
+  }, [dbRef, dvc]);
 
   if (!isLoaded) {
     return <SkeletonText />
@@ -136,7 +137,20 @@ function App() {
       h='100vh'
       w='100vw'
     >
-      <Box className='menu' position='absolute' left={0} top={0} h='100%' w='12%' bgColor='white' zIndex={100} display='flex' alignItems='center' flexDirection='column' gap={50}>
+      <Box 
+        className='menu' 
+        position='absolute' 
+        left={0} 
+        top={0} 
+        h='100%' 
+        w='12%' 
+        bgColor='white' 
+        zIndex={100} 
+        display='flex' 
+        alignItems='center' 
+        flexDirection='column' 
+        gap={50}
+      >
         <Button colorScheme='pink' type='submit' paddingBottom='30px' paddingTop='30px' width={'80%'} fontSize={20} marginTop={50} onClick={boxFunction}>
           Tìm đường
         </Button>
