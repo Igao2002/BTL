@@ -73,7 +73,7 @@ export const Detail = React.memo(() => {
             <Divider orientation='horizontal' mt={2} mb={2}/>
             {warning && (
                 <Box fontSize={20} marginBottom={2} fontWeight={500} ml={4} mr={2} color={'red'}>
-                    ! CẢNH BÁO cần duy trì tốc độ ở mức cho phép.
+                    ! CẢNH BÁO hành vi lái xe bất thường
                 </Box>
             )}
         </Box>

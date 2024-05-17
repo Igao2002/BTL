@@ -15,7 +15,7 @@ import { HistoryComponent } from './Component/history'
 const libraries = ['places'];
 function App() {
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyC8kwhZ2AEEkMRAJExCe0jZrVKxR4sm7CU",
+    googleMapsApiKey: "AIzaSyBl28I_AAnRulJ-fWgu74m7J8V5eaClqgs",
     libraries: libraries,
   })
   
