@@ -4,7 +4,7 @@ import { ref, child, onValue } from "https://www.gstatic.com/firebasejs/9.19.1/f
 import { database } from "./firebase"
 
 export const Detail = React.memo(() => {
-    const [selectedVehicle, setSelectedVehicle] = useState('LGE_LM-V350_e9c88b01d291a942');
+    const [selectedVehicle, setSelectedVehicle] = useState('samsung_SM-G970U1_77f7f43c97f709ee');
     const [firebaseData, setFirebaseData] = useState('')
     const [speed, setSpeed] = useState('');
     const [azimuth, setAzimuth] = useState('')
@@ -51,9 +51,7 @@ export const Detail = React.memo(() => {
         >
             <Text fontSize={20} mb={2}>Chọn phương tiện muốn hiển thị thông tin</Text>
             <Select fontSize={20} onChange={handleVehicleChange} value={selectedVehicle}>
-            <option value="LGE_LM-V350_e9c88b01d291a942">LGE_LM-V350_e9c88b01d291a942</option>
-          <option value="LGE_LM-V350_7417b07941dd5c2a">LGE_LM-V350_7417b07941dd5c2a</option>
-          <option value="samsung_SM-G975F_bca70a5f1c14d30a">samsung_SM-G975F_bca70a5f1c14d30a</option>
+                <option value="samsung_SM-G970U1_77f7f43c97f709ee">samsung_SM-G970U1_77f7f43c97f709ee</option>
             </Select>
             <Box fontSize={20} marginBottom={3} ml={4} mr={2} mt={4}>
                 Tốc độ: {speed} m/s

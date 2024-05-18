@@ -15,6 +15,7 @@ import { HistoryComponent } from './Component/history'
 const libraries = ['places'];
 function App() {
   const { isLoaded } = useJsApiLoader({
+    // googleMapsApiKey: "AIzaSyBl28I_AAnRulJ-fWgu74m7J8V5eaClqgs",
     googleMapsApiKey: "AIzaSyBl28I_AAnRulJ-fWgu74m7J8V5eaClqgs",
     libraries: libraries,
   })
@@ -32,7 +33,7 @@ function App() {
   const [coordinates, setCoordinates] = useState([]);
   const [route, setRoute] = useState([])
   const [history, setHistory] = useState([])
-  const [dvc, setDvc] = useState('LGE_LM-V350_e9c88b01d291a942')
+  const [dvc, setDvc] = useState('samsung_SM-G970U1_77f7f43c97f709ee')
   
   /** @type React.MutableRefObject<HTMLInputElement> */
   const originRef = useRef()
